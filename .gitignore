@@ -1,2 +1,4 @@
 .jbundler
 pkg
+vendor
+.bundle
