@@ -17,12 +17,14 @@ GEM
       jar-dependencies (~> 0.2)
       maven-tools (~> 1.0.10)
       ruby-maven (~> 3.3, >= 3.3.3)
+    jdbc-postgres (9.4.1206)
     maven-tools (1.0.13)
       virtus (~> 1.0)
     rake (10.5.0)
     ruby-maven (3.3.10)
       ruby-maven-libs (~> 3.3.1)
     ruby-maven-libs (3.3.3)
+    sequel (4.31.0)
     thread_safe (0.3.5-java)
     virtus (1.0.5)
       axiom-types (~> 0.1)
@@ -35,7 +37,9 @@ PLATFORMS
 
 DEPENDENCIES
   jbundler (= 0.9.1)
+  jdbc-postgres
   rake
+  sequel
 
 BUNDLED WITH
    1.11.2
