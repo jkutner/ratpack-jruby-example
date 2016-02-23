@@ -16,3 +16,11 @@ $ export DATABASE_URL="postgres://localhost:5432/ratpack"
 $ bin/rake db:migrate
 $ jruby server.rb
 ```
+
+## Heroku Setup
+
+```
+$ heroku create
+$ git push heroku master
+$ heroku run rake db:migrate
+```
