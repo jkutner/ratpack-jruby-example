@@ -3,26 +3,14 @@ require 'bundler/setup'
 require 'jbundler'
 require 'sequel'
 require 'json'
+require 'jdbc-url'
 
 java_import 'ratpack.server.RatpackServer'
 java_import 'ratpack.registry.Registry'
 
 JavaString = java.lang.Class.forName("java.lang.String")
 
-def create_jdbc_url(db_url)
-  db_server = db_url.split('@')[1]
-  db_host = db_server.split(':')[0]
-  db_port = db_server.split(':')[1].split('/')[0]
-  db_name = db_server.split(':')[1].split('/')[1]
-
-  db_creds = db_url.split('@')[0].gsub('postgres://', '')
-  db_user = db_creds.split(':')[0]
-  db_pass = db_creds.split(':')[1]
-
-  "jdbc:postgresql://#{db_host}:#{db_port}/#{db_name}?user=#{db_user}&password=#{db_pass}&sslmode=require"
-end
-
-DB = Sequel.connect(create_jdbc_url(ENV['DATABASE_URL']))
+DB = Sequel.connect(JdbcUrl.from_database_url)
 
 DB.run "CREATE TABLE IF NOT EXISTS widgets (id serial not null primary key, name text)"
 
