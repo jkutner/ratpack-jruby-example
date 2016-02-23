@@ -4,7 +4,7 @@ require 'bundler/setup'
 Bundler.require
 
 task "db:migrate" do
-  DB = Sequel.connect(JdbcUrl.from_database_url)
+  require './db/init'
   Sequel.extension :migration
   Sequel::Migrator.run(DB, 'db/migrations')
 end

@@ -10,8 +10,7 @@ java_import 'ratpack.stream.Streams'
 java_import 'ratpack.http.ResponseChunks'
 java_import 'java.time.Duration'
 
-DB = Sequel.connect(JdbcUrl.from_database_url)
-
+require './db/init'
 require './lib/widget'
 
 RatpackServer.start do |b|
@@ -29,6 +28,14 @@ RatpackServer.start do |b|
 
     chain.prefix("widgets") do |c1|
       c1.get do |ctx|
+        Blocking.get do
+          DB[:widgets].all
+        end.then do |widgets|
+          ctx.render(JSON.dump(widgets))
+        end
+      end
+
+      c1.get("count") do |ctx|
         Blocking.get do
           DB[:widgets].count
         end.then do |i|
