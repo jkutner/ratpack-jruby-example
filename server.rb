@@ -12,15 +12,7 @@ java_import 'java.time.Duration'
 
 DB = Sequel.connect(JdbcUrl.from_database_url)
 
-DB.run "CREATE TABLE IF NOT EXISTS widgets (id serial not null primary key, name text)"
-
-class Widget < Sequel::Model
-  plugin :json_serializer
-  @java_class = become_java!
-  def self.java_class
-    @java_class
-  end
-end
+require './lib/widget'
 
 RatpackServer.start do |b|
   b.handlers do |chain|
