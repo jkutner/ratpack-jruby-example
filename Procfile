@@ -1,1 +1,1 @@
-web: jruby app.rb
+web: jruby server.rb
