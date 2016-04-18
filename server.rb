@@ -10,14 +10,38 @@ java_import 'ratpack.stream.Streams'
 java_import 'ratpack.http.ResponseChunks'
 java_import 'java.time.Duration'
 
+java_import 'ratpack.server.BaseDir'
+java_import 'ratpack.guice.Guice'
+java_import 'ratpack.dropwizard.metrics.DropwizardMetricsConfig'
+java_import 'ratpack.dropwizard.metrics.DropwizardMetricsModule'
+java_import 'ratpack.dropwizard.metrics.MetricsWebsocketBroadcastHandler'
+
 require './db/init'
 require './lib/widget'
 
 RatpackServer.start do |b|
+  b.server_config do |config|
+    config.base_dir(BaseDir.find)
+    config.props("application.properties")
+    config.require("/metrics", DropwizardMetricsConfig.java_class)
+  end
+
+  b.registry(Guice.registry do |s|
+    s.module(DropwizardMetricsModule.new) do |config|
+      config.csv{|csv| csv.enable(false)}
+    end
+  end)
+
   b.handlers do |chain|
     chain.get do |ctx|
       ctx.render("Hello from Ratpack JRuby")
     end
+
+    chain.files do |f|
+      f.dir("public").indexFiles("metrics.html")
+    end
+
+    chain.get("metrics-report", MetricsWebsocketBroadcastHandler.new)
 
     chain.get("stream") do |ctx|
       publisher = Streams.periodically(ctx, Duration.ofMillis(5)) do |i|
