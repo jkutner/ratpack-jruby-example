@@ -27,4 +27,4 @@ $ heroku run rake db:migrate
 
 ## License
 
-MIT
+Apache v2
