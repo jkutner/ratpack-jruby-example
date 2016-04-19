@@ -20,7 +20,7 @@ $ jruby server.rb
 ## Heroku Setup
 
 ```
-$ heroku create
+$ heroku create --addons heroku-postgresql
 $ git push heroku master
 $ heroku run rake db:migrate
 ```
