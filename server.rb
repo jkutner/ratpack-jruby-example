@@ -26,11 +26,9 @@ RatpackServer.start do |b|
     config.require("/metrics", DropwizardMetricsConfig.java_class)
   end
 
-  b.registry(Guice.registry do |s|
-    s.module(DropwizardMetricsModule.new) do |config|
-      config.csv{|csv| csv.enable(false)}
-    end
-  end)
+  b.registry(Guice.registry { |s|
+    s.module(DropwizardMetricsModule.new)
+  })
 
   b.handlers do |chain|
     chain.get do |ctx|
