@@ -1,0 +1,11 @@
+body {
+    padding: 4em;
+}
+
+#heapChart, #threadsChart {
+    margin-top: 72px;
+}
+
+#requestCountChart {
+    height: 400px;
+}

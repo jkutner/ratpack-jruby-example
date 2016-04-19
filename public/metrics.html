@@ -2,26 +2,42 @@
   <head>
     <meta charset="utf-8">
     <title>WebSocket Demo</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.min.js"></script>
   </head>
 
   <body>
 
-    <h1>WebSocket Demo</h1>
+    <h1>Metrics Dashboard</h1>
 
-    <div>
-      <input type="text" id="input" value="Enter text to reverse!" />
+    <div id="noData" class="alert alert-info" style="margin-top: 50px;">
+      Waiting for data.....
     </div>
 
-    <div>
-      <button type="button" id="open">Open</button>
-      <button type="button" id="send">Send</button>
-      <button type="button" id="close">Close</button>
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Request Count</h2>
+        <div id="requestCountChart"></div>
+      </div>
+      <div class="col-md-4">
+        <h2>Heap Used (%)</h2>
+        <div id="heapChart"></div>
+      </div>
+      <div class="col-md-4">
+        <h2>Thread Count</h2>
+        <div id="threadsChart"></div>
+      </div>
     </div>
 
-    <div id="messages"></div>
+    <h2>Request Timers</h2>
+    <div id="timerCharts"></div>
 
+    <script src="http://www.google.com/jsapi"></script>
+    <script>
+      google.load("visualization", "1", { packages: ["piechart", "corechart", "gauge"]});
+    </script>
     <script src="js/metrics.js"></script>
   </body>
 </html>
