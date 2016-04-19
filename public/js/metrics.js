@@ -160,7 +160,7 @@ function updateCharts(data) {
 
 function connectWs() {
     if (!window.ws || window.ws.readyState != WebSocket.OPEN) {
-        window.ws = new WebSocket("ws://"+location.host+"/metrics-report");
+        window.ws = new WebSocket("wss://"+location.host+"/metrics-report");
 
         window.ws.onopen = function(event) {
             console.log("WebSocket opened");
